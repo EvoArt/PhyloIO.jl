@@ -46,23 +46,59 @@ function addnode!(t::PhyloTree; parent::Integer=0, length::Real=NaN, label::Abst
     return i
 end
 
-"""    nnodes(tree)  number of nodes, tips included."""
+"""
+    nnodes(tree)
+
+Number of nodes, tips included.
+"""
 nnodes(t::PhyloTree) = length(t.parent)
-"""    ntips(tree)  number of tips (leaves)."""
+"""
+    ntips(tree)
+
+Number of tips (leaves).
+"""
 ntips(t::PhyloTree) = count(isempty, t.children)
-"""    isleaf(tree, i)  whether node `i` is a tip."""
+"""
+    isleaf(tree, i)
+
+Whether node `i` is a tip.
+"""
 isleaf(t::PhyloTree, i::Integer) = isempty(t.children[i])
-"""    isroot(tree, i)  whether node `i` is the root."""
+"""
+    isroot(tree, i)
+
+Whether node `i` is the root.
+"""
 isroot(t::PhyloTree, i::Integer) = t.parent[i] == 0
-"""    parentnode(tree, i)  parent of node `i` (`0` for the root)."""
+"""
+    parentnode(tree, i)
+
+Parent of node `i` (`0` for the root).
+"""
 parentnode(t::PhyloTree, i::Integer) = t.parent[i]
-"""    childnodes(tree, i)  children of node `i`, in drawing order."""
+"""
+    childnodes(tree, i)
+
+Children of node `i`, in drawing order.
+"""
 childnodes(t::PhyloTree, i::Integer) = t.children[i]
-"""    branchlength(tree, i)  length of the branch above node `i` (`NaN` if missing)."""
+"""
+    branchlength(tree, i)
+
+Length of the branch above node `i` (`NaN` if missing).
+"""
 branchlength(t::PhyloTree, i::Integer) = t.length[i]
-"""    nodelabel(tree, i)  label of node `i`."""
+"""
+    nodelabel(tree, i)
+
+Label of node `i`.
+"""
 nodelabel(t::PhyloTree, i::Integer) = t.label[i]
-"""    rootnode(tree)  index of the root."""
+"""
+    rootnode(tree)
+
+Index of the root.
+"""
 rootnode(t::PhyloTree) = t.root
 
 """
@@ -72,7 +108,11 @@ The annotation `key` (a `Symbol`) of node `i`, or `default`.
 """
 getdata(t::PhyloTree, i::Integer, key::Symbol, default=nothing) = get(t.data[i], key, default)
 
-"""    setdata!(tree, i, key, value)  set annotation `key` of node `i`."""
+"""
+    setdata!(tree, i, key, value)
+
+Set annotation `key` of node `i`.
+"""
 setdata!(t::PhyloTree, i::Integer, key::Symbol, value) = (t.data[i][key] = value; t)
 
 """
@@ -94,7 +134,11 @@ function preorder(t::PhyloTree, from::Integer=t.root)
     return out
 end
 
-"""    postorder(tree, from=root)  nodes with children before parents."""
+"""
+    postorder(tree, from=root)
+
+Nodes with children before parents.
+"""
 function postorder(t::PhyloTree, from::Integer=t.root)
     out = Int[]
     stack = [(Int(from), false)]
@@ -113,19 +157,39 @@ function postorder(t::PhyloTree, from::Integer=t.root)
     return out
 end
 
-"""    tips(tree, from=root)  tip nodes in drawing order (top to bottom)."""
+"""
+    tips(tree, from=root)
+
+Tip nodes in drawing order (top to bottom).
+"""
 tips(t::PhyloTree, from::Integer=t.root) = filter(i -> isleaf(t, i), preorder(t, from))
 
-"""    tipnames(tree)  tip labels in drawing order."""
+"""
+    tipnames(tree)
+
+Tip labels in drawing order.
+"""
 tipnames(t::PhyloTree) = [t.label[i] for i in tips(t)]
 
-"""    internalnodes(tree)  internal nodes in pre-order."""
+"""
+    internalnodes(tree)
+
+Internal nodes in pre-order.
+"""
 internalnodes(t::PhyloTree) = filter(i -> !isleaf(t, i), preorder(t))
 
-"""    descendants(tree, i)  all nodes below `i` (excluding `i`)."""
+"""
+    descendants(tree, i)
+
+All nodes below `i` (excluding `i`).
+"""
 descendants(t::PhyloTree, i::Integer) = preorder(t, i)[2:end]
 
-"""    ancestors(tree, i)  nodes from the parent of `i` up to the root."""
+"""
+    ancestors(tree, i)
+
+Nodes from the parent of `i` up to the root.
+"""
 function ancestors(t::PhyloTree, i::Integer)
     out = Int[]
     p = t.parent[i]
@@ -225,10 +289,18 @@ function nodeheight_steps(t::PhyloTree)
     return h
 end
 
-"""    treeheight(tree)  largest root-to-tip distance."""
+"""
+    treeheight(tree)
+
+Largest root-to-tip distance.
+"""
 treeheight(t::PhyloTree) = maximum(rootdistance(t))
 
-"""    ntipsbelow(tree)  number of tips below each node (1 for a tip)."""
+"""
+    ntipsbelow(tree)
+
+Number of tips below each node (1 for a tip).
+"""
 function ntipsbelow(t::PhyloTree)
     k = zeros(Int, nnodes(t))
     for i in postorder(t)
@@ -251,7 +323,11 @@ function ladderize!(t::PhyloTree; right::Bool=true)
     return t
 end
 
-"""    rotatenode!(tree, node)  reverse the order of a node's children."""
+"""
+    rotatenode!(tree, node)
+
+Reverse the order of a node's children.
+"""
 function rotatenode!(t::PhyloTree, node)
     reverse!(t.children[nodeindex(t, node)])
     return t
