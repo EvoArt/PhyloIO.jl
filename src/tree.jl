@@ -194,7 +194,7 @@ function rootdistance(t::PhyloTree; cladogram::Bool=false)
     n = nnodes(t)
     x = zeros(n)
     haslen = any(i -> i != t.root && !isnan(t.length[i]), 1:n)
-    if cladogram || !haslen
+    if cladogram
         h = nodeheight_steps(t)
         H = h[t.root]
         for i in 1:n
@@ -210,7 +210,7 @@ function rootdistance(t::PhyloTree; cladogram::Bool=false)
     for i in preorder(t)
         i == t.root && continue
         l = t.length[i]
-        x[i] = x[t.parent[i]] + (isnan(l) ? 0.0 : max(l, 0.0))
+        x[i] = x[t.parent[i]] + (haslen ? (isnan(l) ? 0.0 : max(l, 0.0)) : 1.0)
     end
     return x
 end
