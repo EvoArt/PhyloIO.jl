@@ -1,11 +1,11 @@
 """
-    PhyloIO
+    PhylogenyIO
 
 A small, dependency-free phylogenetic tree type with readers and writers for
 Newick (including NHX and BEAST/MrBayes `[&...]` annotations) and the trees
 block of Nexus files, plus the usual tree queries and edits.
 """
-module PhyloIO
+module PhylogenyIO
 
 using Random: Random, AbstractRNG, randexp
 

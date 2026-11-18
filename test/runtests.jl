@@ -1,8 +1,8 @@
-using PhyloIO
+using PhylogenyIO
 using Test
 using Random
 
-@testset "PhyloIO" begin
+@testset "PhylogenyIO" begin
     @testset "Newick basics" begin
         t = parsenewick("((A:1,B:2)90:0.5,(C:1,'D e':1.5)0.7:1,F:3);")
         @test ntips(t) == 5

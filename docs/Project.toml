@@ -1,6 +1,6 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-PhyloIO = "2031dd8a-3ee5-4b40-a1c7-31da38b3f347"
+PhylogenyIO = "2031dd8a-3ee5-4b40-a1c7-31da38b3f347"
 
 [compat]
 Documenter = "1"

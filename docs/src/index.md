@@ -1,11 +1,11 @@
-# PhyloIO.jl
+# PhylogenyIO.jl
 
 ```@docs
-PhyloIO
+PhylogenyIO
 ```
 
 ```julia
-using PhyloIO
+using PhylogenyIO
 t = parsenewick("((A:1,B:1)95:2,C:3);")
 mrca(t, ["A", "B"])
 writenewick(ladderize!(t))
