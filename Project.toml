@@ -1,7 +1,7 @@
 name = "PhylogenyIO"
 uuid = "2031dd8a-3ee5-4b40-a1c7-31da38b3f347"
 authors = ["Arthur Newbury <arn203@exeter.ac.uk>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
